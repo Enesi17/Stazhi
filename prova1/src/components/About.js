@@ -1,3 +1,7 @@
+//Created by  : Enes Smajli 
+//Date        : 05/09/23
+//Description : About component, short introduction (Content to be add later...)
+
 import React from 'react'
 
 const About = () => {
