@@ -1,3 +1,8 @@
+//Created by  : Enes Smajli 
+//Date        : 05/09/23
+//Description : App component, auto-generated, is the component that puts together all other
+//              components and also renders
+
 import Login from "./components/Login";
 import "./index.css"
 import Navbar from "./components/Navbar";
@@ -31,3 +36,4 @@ function App() {
 }
 
 export default App;
+
