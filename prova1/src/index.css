@@ -1,3 +1,8 @@
+/*
+  //Created by  : Enes Smajli 
+  //Date        : 05/09/23
+  //Description : This file contains all the css styling of this app
+*/
 * {
   margin: 10px;
   font-family: "Quicksand";
@@ -57,6 +62,4 @@ p{
 .button{
   width: 100%;
 }
-.rememberMe{
-  margin: 5px;
-}
+
