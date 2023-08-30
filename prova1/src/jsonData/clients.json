@@ -1,0 +1,35 @@
+[
+    {
+        "ID":"001",
+        "email":"esne17@gmail.com",
+        "password":"123456789",
+        "firstName":"Enes",
+        "lastName":"Smajli",
+        "workPlace":"T3-Solution"
+    },
+    {
+        "ID":"002",
+        "email":"anesa04@gmail.com",
+        "password":"987654321",
+        "firstName":"Anesa",
+        "lastName":"Smajli",
+        "workPlace":"QKUK"
+    },
+    {
+        "ID":"003",
+        "email":"uveis@gmail.com",
+        "password":"951753258456",
+        "firstName":"Uveis",
+        "lastName":"Smajli",
+        "workPlace":"KITC"
+    },
+    {
+        "ID":"004",
+        "email":"bsmajli@gmail.com",
+        "password":"987654321",
+        "firstName":"Besim",
+        "lastName":"Smajli",
+        "workPlace":"Elektrika-3D"
+    }
+
+]
