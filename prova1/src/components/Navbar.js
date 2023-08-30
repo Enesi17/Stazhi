@@ -1,3 +1,7 @@
+//Created by  : Enes Smajli 
+//Date        : 05/09/23
+//Description : Navbar component, makes it easy to navigate through the options of the page
+
 import React from 'react';
 
 const Navbar = () => {
