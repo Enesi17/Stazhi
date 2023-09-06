@@ -1,22 +1,30 @@
-
 //Created by  : Enes Smajli 
 //Date        : 07/09/23
-//Last Update : 11/09/23
+//Last Update : 13/09/23
 //Description : tables.js is the main component, it coontains the data view, edit and delete options
 
-import React, { useState, Fragment, useEffect } from "react";
+import React from "react";
 import ReadOnlyRow from "./ReadOnlyRow";
 import EditableRow from "./EditableRow";
+import AddClient from "./AddClient";
+
+import { useState, Fragment, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { Button, Table, Form, Container, Row, Col } from "react-bootstrap";
-import "firebase/compat/firestore";
+import { Button, Table, Form, Container, Row, Col, Alert } from "react-bootstrap";
 import { firestore } from '../firebase';
+
 import "../index.css"
+import "firebase/compat/firestore";
 
 
 const Tables = () => {
+  
+  const [isAddClientVisible, setIsAddClientVisible] = useState(false);
+
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
 
   const [clients, setClients] = useState([]);
+
   const [addFormData, setAddFormData] = useState({
     email:"",
     password:"",
@@ -50,18 +58,10 @@ const Tables = () => {
     fetchData();
   }, []);
 
-  const handleAddFormChange = (event) => {
-    event.preventDefault();
-
-    const fieldName = event.target.getAttribute("name");
-    const fieldValue = event.target.value;
-
-    const newFormData = { ...addFormData };
-    newFormData[fieldName] = fieldValue;
-
-    setAddFormData(newFormData);
+  const handleAddClient = () => {
+    setIsAddClientVisible(!isAddClientVisible);
   };
-
+  
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
@@ -74,28 +74,7 @@ const Tables = () => {
     setEditFormData(newFormData);
   };
 
-  const handleAddFormSubmit = async (event) => {
-    event.preventDefault();
   
-    const newClient = {
-      email: addFormData.email,
-      password: addFormData.password,
-      firstName: addFormData.firstName,
-      lastName: addFormData.lastName,
-    };
-  
-    try {
-      await firestore.collection('users').add(newClient);
-      setAddFormData({
-        email: '',
-        password: '',
-        firstName: '',
-        lastName: '',
-      });
-    } catch (error) {
-      console.error('Error adding client to Firestore: ', error);
-    }
-  };
 
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
@@ -134,13 +113,19 @@ const Tables = () => {
     setEditClientId(null);
   };
 
+
   const handleDeleteClick = async (clientId) => {
-    try {
-      await firestore.collection('users').doc(clientId).delete();
-      const newClients = clients.filter((client) => client.id !== clientId);
-      setClients(newClients);
-    } catch (error) {
-      console.error('Error deleting client in Firestore: ', error);
+    const shouldDelete = window.confirm("Are you sure you want to delete this client?");
+
+    if(shouldDelete)
+    {
+      try {
+        await firestore.collection('users').doc(clientId).delete();
+        const newClients = clients.filter((client) => client.id !== clientId);
+        setClients(newClients);
+      } catch (error) {
+        console.error('Error deleting client in Firestore: ', error);
+      }
     }
   };
 
@@ -153,8 +138,10 @@ const Tables = () => {
       
         try {
           await logout();
-          window.location.pathname = "/"; // Redirect to the logout route.
+          window.location.reload();
+          window.location.pathname = "/login"; 
           console.log("Logged out successfully...");
+          
         } catch {
           setError("Failed to log out");
           console.log("sdhfsjdfhjskdfhskjdfhsfjkshdfkjshdfkjshfdkjshfjksdhfkjsdhf")
@@ -163,8 +150,12 @@ const Tables = () => {
      }
 
     return ( 
+      
       <div className="app-container">
+         <h2>Table View-Client's Table</h2>
       <Container>
+        {!currentUser && <Alert variant="danger">You need to log in first</Alert>}
+        
         <Row>
           <Col>
             <Form onSubmit={handleEditFormSubmit}>
@@ -202,51 +193,16 @@ const Tables = () => {
           </Col>
         </Row>
         <Row>
-          <Col className="border p-3">
-            <h2>Add a new client</h2>
-            <Form onSubmit={handleAddFormSubmit} >
-              <Form.Group>
-                <Form.Control className='form-input-container'
-                  type="email"
-                  name="email"
-                  required
-                  placeholder="Enter email ..."
-                  onChange={handleAddFormChange}
-                />
-                <Form.Control className='form-input-container'
-                  type="password"
-                  name="password"
-                  required
-                  placeholder="Enter password ..."
-                  onChange={handleAddFormChange}
-                />
-                <Form.Control className='form-input-container'
-                  type="text"
-                  name="firstName"
-                  required
-                  placeholder="Enter first name ..."
-                  onChange={handleAddFormChange}
-                />
-                <Form.Control className='form-input-container'
-                  type="text"
-                  name="lastName"
-                  required
-                  placeholder="Enter last name..."
-                  onChange={handleAddFormChange}
-                />
-              </Form.Group>
-              <Button type="submit">Add</Button>
-            </Form>
-          </Col>
-        </Row>
-        <Row>
           <Col>
-            <Button variant="link" onClick={handleLogout}>
-              Log Out
-            </Button>
+          {isAddClientVisible && <AddClient />}
+          {!isAddClientVisible && 
+            <Button className="addNewClient" onClick={handleAddClient}>
+              Add New Client
+            </Button>}
           </Col>
         </Row>
       </Container>
+      
     </div>
      );
 }
