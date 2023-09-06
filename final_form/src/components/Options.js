@@ -1,6 +1,6 @@
 //Created by  : Enes Smajli 
 //Date        : 08/09/23
-//Last Update : 11/09/23
+//Last Update : 13/09/23
 //Description : Options.js is like a bar for the user where the user can choose where to go in the app
 
 import { useAuth } from "../context/AuthContext";
@@ -9,7 +9,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
 const Options = () => {
-    const [setError] = useState("");
+    const [error, setError] = useState("");
     const { logout } = useAuth();
 
     
@@ -19,6 +19,7 @@ const Options = () => {
       
         try {
           await logout();
+          window.location.reload();
           window.location.pathname = "/login"; 
           console.log("Logged out successfully...");
         } catch {
