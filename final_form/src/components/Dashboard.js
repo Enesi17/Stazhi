@@ -1,6 +1,6 @@
 //Created by  : Enes Smajli 
 //Date        : 08/09/23
-//Last Update : 13/09/23
+//Last Update : 14/09/23
 //Description : Options.js is like a bar for the user where the user can choose where to go in the app
 
 import { useAuth } from "../context/AuthContext";
@@ -8,7 +8,7 @@ import React, {useState} from "react";
 import { Container, Row, Col, Button } from 'react-bootstrap';
 
 
-const Options = () => {
+const Dashboard = () => {
     const [error, setError] = useState("");
     const { logout } = useAuth();
 
@@ -29,6 +29,7 @@ const Options = () => {
   
      return (
       <div>
+        
         <Container style={{itemsAlign:"center"}}>
           <Row>
             <Col md={5}>
@@ -43,12 +44,12 @@ const Options = () => {
               <Button href="/login" className="custom-button">Log in</Button>
             </Col>
             <Col md={5}>
-              <Button href="/login" className="custom-button">Tabelat</Button>
+              <Button href="/client" className="custom-button">Client</Button>
             </Col>
           </Row>
           <Row>
             <Col md={5}>
-              <Button href="/forgotPassword" className="custom-button">Forgot Password</Button>
+              <Button href="/forgotPassword" className="custom-button">Reset Password</Button>
             </Col>
             <Col md={5}>
               <Button href="/" className="custom-button" onClick={handleLogout}>Log out</Button>
@@ -60,4 +61,4 @@ const Options = () => {
     
 }
  
-export default Options;
+export default Dashboard;

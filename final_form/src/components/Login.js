@@ -1,6 +1,6 @@
 //Created by  : Enes Smajli 
 //Date        : 05/09/23
-//Last Update : 11/09/23
+//Last Update : 14/09/23
 //Description : Login component used to log in
 
 import React, { useRef, useState } from "react"
@@ -23,7 +23,7 @@ const Login = () => {
           setError("")
           setLoading(true)
           await login(emailRef.current.value, passwordRef.current.value)
-          window.location.pathname="/tables";
+          window.location.pathname="/dashboard";
         } catch {
           setError("Failed to log in")
         }

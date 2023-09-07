@@ -1,6 +1,6 @@
 //Created by  : Enes Smajli 
 //Date        : 13/09/23
-//Last Update : 13/09/23
+//Last Update : 14/09/23
 //Description : LogOut.js component, it makes the loguot happen
 
 import React, {useState} from "react";
@@ -19,6 +19,7 @@ const LogOut = () => {
         try {
           await logout();
           window.location.reload();
+          window.location.pathname = "/login"
           console.log("Logged out successfully...");
         } catch {
           setError("Failed to log out");

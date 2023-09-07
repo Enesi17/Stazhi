@@ -1,3 +1,4 @@
+
 //Created by  : Enes Smajli 
 //Date        : 13/09/23
 //Last Update : 13/09/23
@@ -14,7 +15,6 @@ const AddClient = () => {
 
  
   const {currentUser} = useAuth();
-  const [editClientId, setEditClientId] = useState();
   const [isAddClientVisible, setIsAddClientVisible] = useState(false);
   const [clients, setClients] = useState([]);
   const [addFormData, setAddFormData] = useState({
@@ -24,13 +24,6 @@ const AddClient = () => {
     lastName:""
   });
 
-  const [editFormData, setEditFormData] = useState({
-    email:"",
-    password:"",
-    firstName:"",
-    lastName:""
-  });
-  
   useEffect(() => {
     const fetchData = async () => {
       try {

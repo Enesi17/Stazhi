@@ -1,13 +1,12 @@
 //Created by  : Enes Smajli 
 //Date        : 05/09/23
-//Last Update : 13/09/23
+//Last Update : 14/09/23
 //Description : Navbar component, makes it easy to navigate through the options of the page
 
 import React from 'react';
 import {Button} from 'react-bootstrap'
 import "../index.css"
 import LogOut from './LogOut';
-import Login from './Login';
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
@@ -30,7 +29,7 @@ const Navbar = () => {
             <a className="nav-link" href="/signup">Create Account</a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/options">Opsionet</a>
+            <a className="nav-link" href="/dashboard">Dashboard</a>
           </li>
           { !currentUser && <li className="nav-item"><Button href="/login">Login</Button></li> }
           { currentUser && <li className="nav-item"><LogOut /></li> }

@@ -1,6 +1,7 @@
+
 //Created by  : Enes Smajli 
 //Date        : 07/09/23
-//Last Update : 13/09/23
+//Last Update : 14/09/23
 //Description : tables.js is the main component, it coontains the data view, edit and delete options
 
 import React from "react";
@@ -15,10 +16,12 @@ import { firestore } from '../firebase';
 
 import "../index.css"
 import "firebase/compat/firestore";
+import Dashboard from "./Dashboard";
 
 
-const Tables = () => {
+const Client = () => {
   
+
   const [isAddClientVisible, setIsAddClientVisible] = useState(false);
 
   const [deleteConfirmed, setDeleteConfirmed] = useState(false);
@@ -74,8 +77,6 @@ const Tables = () => {
     setEditFormData(newFormData);
   };
 
-  
-
   const handleEditFormSubmit = async (event) => {
     event.preventDefault();
   
@@ -129,82 +130,65 @@ const Tables = () => {
     }
   };
 
-  const [error, setError] = useState("")
-  const { currentUser, logout } = useAuth()
   
-    async function handleLogout(event) {
-        event.preventDefault();
-        setError("");
-      
-        try {
-          await logout();
-          window.location.reload();
-          window.location.pathname = "/login"; 
-          console.log("Logged out successfully...");
-          
-        } catch {
-          setError("Failed to log out");
-          console.log("sdhfsjdfhjskdfhskjdfhsfjkshdfkjshdfkjshfdkjshfjksdhfkjsdhf")
-          
-        }
-     }
+  const { currentUser, logout } = useAuth()
+  let goLogin = false;
 
-    return ( 
-      
-      <div className="app-container">
-         <h2>Table View-Client's Table</h2>
-      <Container>
-        {!currentUser && <Alert variant="danger">You need to log in first</Alert>}
-        
-        <Row>
-          <Col>
-            <Form onSubmit={handleEditFormSubmit}>
-              <Table responsive striped bordered hover> {/* Apply Bootstrap table classes */}
-              <thead className="thead-dark"> {/* Add the thead-dark class */}
-                <tr>
-                  <th>Email</th>
-                  <th>Password</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                  {clients.map((client) => (
-                    <Fragment key={client.id}>
-                      {editClientId === client.id ? (
+  return ( 
+      <div>
+        <div className="app-container">
+        <h2>Table View-Client's Table</h2>
+          <Container>
+            {!currentUser && <Alert variant="danger">You need to log in first</Alert>}
+            <Row>
+              <Col>
+                <Form onSubmit={handleEditFormSubmit}>
+                  <Table responsive striped bordered hover> {/* Apply Bootstrap table classes */}
+                    <thead className="thead-dark"> {/* Add the thead-dark class */}
+                    <tr>
+                      <th>Email</th>
+                      <th>Password</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                      {clients.map((client) => (
+                       <Fragment key={client.id}>
+                        {editClientId === client.id ? (
                         <EditableRow
-                          editFormData={editFormData}
-                          handleEditFormChange={handleEditFormChange}
-                          handleCancelClick={handleCancelClick}
+                         editFormData={editFormData}
+                         handleEditFormChange={handleEditFormChange}
+                         handleCancelClick={handleCancelClick}
                         />
-                      ) : (
+                        ) : (
                         <ReadOnlyRow
-                          client={client}
-                          handleEditClick={handleEditClick}
-                          handleDeleteClick={handleDeleteClick}
+                         client={client}
+                         handleEditClick={handleEditClick}
+                         handleDeleteClick={handleDeleteClick}
                         />
-                      )}
-                    </Fragment>
-                  ))}
-                </tbody>
-              </Table>
-            </Form>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          {isAddClientVisible && <AddClient />}
-          {!isAddClientVisible && 
-            <Button className="addNewClient" onClick={handleAddClient}>
-              Add New Client
-            </Button>}
-          </Col>
-        </Row>
-      </Container>
-      
-    </div>
+                        )}
+                       </Fragment>
+                      ))}
+                    </tbody>
+                  </Table>
+                </Form>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+              {isAddClientVisible && <AddClient />}
+              {!isAddClientVisible && 
+              <Button className="addNewClient" onClick={handleAddClient}>
+                 Add New
+              </Button>}
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>
      );
 }
  
-export default Tables;
+export default Client;

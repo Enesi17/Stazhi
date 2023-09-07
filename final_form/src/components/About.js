@@ -1,14 +1,22 @@
 //Created by  : Enes Smajli 
 //Date        : 05/09/23
-//Last Update : 11/09/23
+//Last Update : 14/09/23
 //Description : About component, short introduction
 
 import React from 'react';
+import { Alert } from 'react-bootstrap'
 import "../index.css"
+import { useAuth } from '../context/AuthContext';
+import Dashboard from './Dashboard';
 
 const About = () => {
+
+  const { currentUser } = useAuth();
+
   return (
     <div>
+      {!currentUser && <Alert variant="danger">Log in first</Alert>}
+      {currentUser && 
       <div className="container mt-5">
         <div className="about">
           <h2 className="display-4">T3-stazherat</h2>
@@ -17,7 +25,7 @@ const About = () => {
             <div>
               <h4>First Module</h4>
               <p>
-                This is the first module, a product of the realization of task 1 given on 09/04/2023. Required functionalities:
+                This is the first module, a product of the realization of 'Task 1' given on 09/04/2023. Required functionalities:
               </p>
               <ul>
                 <li>Sign up</li>
@@ -49,6 +57,8 @@ const About = () => {
           </div>
         </div>
       </div>
+      }
+      {!currentUser && <Dashboard />}
     </div>
   );
 };

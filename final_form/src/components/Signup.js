@@ -15,11 +15,13 @@ import { firestore } from '../firebase';
 const Signup = () => {
 
     const firestoreData = firebase.firestore();
+    const { logout } = useAuth();
     let emailRef = useRef();
     let passwordRef = useRef();
     let confirmPasswordRef = useRef();
     let firstName = useRef();
     let lastName = useRef();
+
     const [signupSuccess, setSignupSuccess] = useState(false);
     const { signup } = useAuth();
     const [error, setError] = useState("");
@@ -67,7 +69,8 @@ const Signup = () => {
         } catch {
             setError("Failed to create an account")
           }
-          setLoading(false)
+          setLoading(false);
+          window.location.pathname='/login';
     }
   
     
@@ -75,9 +78,10 @@ const Signup = () => {
     
   return (
     <div>
+      
         <Card>
             <Card.Header>
-                <h2>Sign Up</h2>
+                {logout() && <h2>Sign Up</h2>}
             </Card.Header>
             <Card.Body>
                 {error && <Alert className='info' variant='danger'>{error}</Alert>}
