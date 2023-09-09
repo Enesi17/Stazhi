@@ -6,6 +6,7 @@ import Dashboard from "./Dashboard";
 import Applications from "./Applications"
 import AddApplication from "./AddApplication"
 import CreateDBForApp from "./CreateDBForApp";
+import Client from "./Client";
 import ForgotPassword from "./ForgotPassword"
 import { useAuth } from "../context/AuthContext";
 import '../index.css'
@@ -40,6 +41,9 @@ import '../index.css'
         break;
       case "/createDB":
         component = <CreateDBForApp />
+        break;
+      case "/client":
+        component = <Client />
   }
 
 const Body = () => {

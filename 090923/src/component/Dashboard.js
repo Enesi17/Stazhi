@@ -13,7 +13,8 @@ const Dashboard = () => {
     const [error, setError] = useState("");
     const { logout } = useAuth();
     const { currentUser } = useAuth();
-    
+    let admin = currentUser.email;
+
     async function handleLogout(event) {
         event.preventDefault();
         setError("");
@@ -52,6 +53,17 @@ const Dashboard = () => {
               <Button href="/createDB" className="custom-button">Create Databese for Applicatoin</Button>
             </Col>
           </Row>
+          
+          {admin === 'veton@gmail.com' && (
+            <Row>
+            <Col md={10}>
+              <Button href="/client" className="custom-button">
+                View Users
+              </Button>
+              </Col>
+          </Row>
+          )}
+            
           <Row>
             <Col md={5}>
               <Button href="/forgotPassword" className="custom-button">Reset Password</Button>

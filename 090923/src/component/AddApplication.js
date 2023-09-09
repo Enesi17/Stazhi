@@ -85,7 +85,7 @@ const AddApplication = () => {
     }
 
     setIsAddClientVisible(false);
-    setTimeout(function () {window.location.pathname = '/applications';}, 100)
+    setTimeout(function () {window.location.pathname = '/applications';}, 100);
     
   };
 
